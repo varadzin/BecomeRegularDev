@@ -23,7 +23,7 @@ struct SkillsView: View {
                 }
             }
             .pickerStyle(.segmented)
-            
+            Spacer()
             
                 .navigationTitle("Regular Dev Skills")
         }

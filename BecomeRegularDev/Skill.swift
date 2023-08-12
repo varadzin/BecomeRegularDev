@@ -6,16 +6,17 @@
 //
 
 import Foundation
+import RealmSwift
 
-struct Skill {
-    
-    var name: String
-    var isCompleted: Bool
-    var priority: Priority
+class Skill: Object, Identifiable {
+    @Persisted(primaryKey: true) var _id: ObjectId
+    @Persisted var name: String = ""
+    @Persisted var isCompleted: Bool = false
+    @Persisted var priority: Priority = Priority.medium
  }
 
 
-enum Priority: String, CaseIterable {
+enum Priority: String, CaseIterable, PersistableEnum {
     case low = "Low"
     case medium = "Medium"
     case high = "High"
