@@ -11,11 +11,13 @@ struct SkillsView: View {
     @ObservedObject var viewModel: SkillsViewModel
     @State private var enteredText: String = ""
     @State private var priority: Priority = .low
+  
     
     var body: some View {
         NavigationStack {
-           TextField("Enter skill", text: $enteredText)
+            TextField("Enter skill", text: $enteredText)
                 .textFieldStyle(.roundedBorder)
+                .padding()
             
             Picker("Skill Priority", selection: $priority) {
                 ForEach(Priority.allCases, id: \.self) { priority in
@@ -23,9 +25,27 @@ struct SkillsView: View {
                 }
             }
             .pickerStyle(.segmented)
-            Spacer()
             
-                .navigationTitle("Regular Dev Skills")
+            Button {
+                let newSkill = Skill(id: UUID(), name: enteredText, isCompleted: false, priority: .medium)
+                viewModel.mySkills.append(newSkill)
+            } label: {
+                Text("Speichern")
+                    .frame(maxWidth: .infinity)
+            }
+            
+            .buttonStyle(.borderedProminent)
+            .padding(.vertical)
+            
+            List {
+                ForEach(viewModel.mySkills, id: \.id) { skill in
+                    SkillCell(viewModel: SkillsViewModel())
+                }
+            }
+            .listStyle(.plain)
+            
+            Spacer()
+                .navigationTitle("Become Regular Dev")
         }
         .padding()
     }

@@ -9,6 +9,7 @@ import SwiftUI
 
 class SkillsViewModel: ObservableObject {
     
+    @Published var mySkills: [Skill] = []
 //    let skill = [Skill(name: "Debugging - Instruments, View Hierarchy Debugger, Advanced Breakpoints, Debug Navigator", isCompleted: false, priority: .medium),
 //                        Skill(name: "Aufsetzen eines neuen Xcode Projektes mit Schemes, Build Configurations  und Fastlane Configurations", isCompleted: false, priority: .medium),
 //                        Skill(name: "UI per Storyboard, Code und/oder SwiftUI", isCompleted: false, priority: .medium),
