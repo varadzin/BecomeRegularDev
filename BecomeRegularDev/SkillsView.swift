@@ -29,6 +29,8 @@ struct SkillsView: View {
             Button {
                 let newSkill = Skill(id: UUID(), name: enteredText, isCompleted: false, priority: .medium)
                 viewModel.mySkills.append(newSkill)
+                enteredText = ""
+                print(viewModel.mySkills)
             } label: {
                 Text("Speichern")
                     .frame(maxWidth: .infinity)
@@ -39,7 +41,7 @@ struct SkillsView: View {
             
             List {
                 ForEach(viewModel.mySkills, id: \.id) { skill in
-                    SkillCell(viewModel: SkillsViewModel())
+                    SkillCell(skill: skill, viewModel: SkillsViewModel())
                 }
             }
             .listStyle(.plain)

@@ -9,6 +9,9 @@ import SwiftUI
 
 struct SkillCell: View {
     
+    let skill: Skill
+    
+    @State var skillPriority: Priority = Priority.medium
     @State private var isCompleted: Bool = false
     @ObservedObject var viewModel: SkillsViewModel
     var body: some View {
@@ -16,7 +19,18 @@ struct SkillCell: View {
             Image(systemName: isCompleted ? "checkmark.circle.fill" : "circle")
                 .foregroundColor(isCompleted ? .green : .gray)
                
-            Text("My Skill")
+            Text(skill.name)
+            Spacer()
+            Text(skillPriority.rawValue)
+                .font(.footnote)
+                .foregroundColor(.white)
+                .background {
+                RoundedRectangle(cornerRadius: 5)
+                        .fill(Color.orange)
+                        .frame(width: 70, height: 30)
+                 
+                      
+                }
         }
         .onTapGesture {
             isCompleted.toggle()
@@ -24,8 +38,3 @@ struct SkillCell: View {
     }
 }
 
-struct SkillCell_Previews: PreviewProvider {
-    static var previews: some View {
-        SkillCell(viewModel: SkillsViewModel())
-    }
-}
