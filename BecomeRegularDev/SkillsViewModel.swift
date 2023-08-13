@@ -10,6 +10,30 @@ import SwiftUI
 class SkillsViewModel: ObservableObject {
     
     @Published var mySkills: [Skill] = []
+    
+    
+     func priorityBackground(_ priority: Priority) -> Color {
+        switch priority {
+        case .low:
+            return .gray
+        case .medium:
+            return .orange
+        case .high:
+            return .red
+        }
+    }
+    
+    
+    var pendingSkills: [Skill] {
+mySkills.filter { $0.isCompleted == false }
+               }
+    
+   var completedSkills: [Skill] {
+       mySkills.filter { $0.isCompleted == true }
+    }
+    
+    
+    
 //    let skill = [Skill(name: "Debugging - Instruments, View Hierarchy Debugger, Advanced Breakpoints, Debug Navigator", isCompleted: false, priority: .medium),
 //                        Skill(name: "Aufsetzen eines neuen Xcode Projektes mit Schemes, Build Configurations  und Fastlane Configurations", isCompleted: false, priority: .medium),
 //                        Skill(name: "UI per Storyboard, Code und/oder SwiftUI", isCompleted: false, priority: .medium),

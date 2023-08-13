@@ -12,6 +12,8 @@ struct SkillsView: View {
     @State private var enteredText: String = ""
     @State private var priority: Priority = .low
   
+
+    
     
     var body: some View {
         NavigationStack {
@@ -27,7 +29,7 @@ struct SkillsView: View {
             .pickerStyle(.segmented)
             
             Button {
-                let newSkill = Skill(id: UUID(), name: enteredText, isCompleted: false, priority: .medium)
+                let newSkill = Skill(id: UUID(), name: enteredText, isCompleted: false, priority: priority)
                 viewModel.mySkills.append(newSkill)
                 enteredText = ""
                 print(viewModel.mySkills)
@@ -40,9 +42,24 @@ struct SkillsView: View {
             .padding(.vertical)
             
             List {
-                ForEach(viewModel.mySkills, id: \.id) { skill in
-                    SkillCell(skill: skill, viewModel: SkillsViewModel())
+                Section {
+                    ForEach(viewModel.pendingSkills, id: \.id) { skill in
+                        SkillCell(skill: skill, viewModel: SkillsViewModel())
+                    }
                 }
+            header: {
+                Text("New Skills")
+            }
+                Section {
+                    ForEach(viewModel.completedSkills, id: \.id) { skill in
+                        SkillCell(skill: skill, viewModel: SkillsViewModel())
+                    }
+                }
+            header: {
+                Text("Learned Skills")
+            }
+                
+                
             }
             .listStyle(.plain)
             
