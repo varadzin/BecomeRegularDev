@@ -21,17 +21,16 @@ struct SkillCell: View {
                 .foregroundColor(isCompleted ? .green : .gray)
             Text(skill.name)
             Spacer()
-            Text(skill.priority.rawValue)
-                .font(.footnote)
-                .foregroundColor(.white)
-                .background {
-                    RoundedRectangle(cornerRadius: 5)
-                        .fill(viewModel.priorityBackground(skill.priority))
-                        .frame(width: 70, height: 30)
-                    
-                }
-            Spacer(minLength: 2)
-        }
+                .frame(maxWidth: .infinity)
+            ZStack {
+                RoundedRectangle(cornerRadius: 5)
+                    .fill(viewModel.priorityBackground(skill.priority))
+                    .frame(width: 70, height: 30)
+                Text(skill.priority.rawValue)
+                    .font(.footnote)
+                    .foregroundColor(.white)
+            }
+         }
         
         .onTapGesture {
             isCompleted.toggle()

@@ -8,11 +8,11 @@
 import Foundation
 import RealmSwift
 
-struct Skill: Identifiable {
-     var id: UUID = UUID()
-     var name: String = ""
-     var isCompleted: Bool = false
-     var priority: Priority = Priority.medium
+class Skill: Object,Identifiable {
+    @Persisted (primaryKey: true) var _id: ObjectId
+     @Persisted var name: String = ""
+     @Persisted var isCompleted: Bool = false
+     @Persisted var priority: Priority = Priority.medium
  }
 
 
