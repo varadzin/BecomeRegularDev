@@ -8,7 +8,10 @@
 import Foundation
 import RealmSwift
 
-class Skill: Object,Identifiable {
+
+// I am saving this model to Realm Database
+// and it will be also downloaded from Cloud to lokal Database
+class Skill: Object, Identifiable {
     @Persisted (primaryKey: true) var _id: ObjectId
      @Persisted var name: String = ""
      @Persisted var isCompleted: Bool = false
@@ -21,3 +24,9 @@ enum Priority: String, CaseIterable, PersistableEnum {
     case medium = "Medium"
     case high = "High"
 }
+
+
+//we have to tell realm that we have new schema, new model, new object
+// realm, used this model to create schema for the database
+
+ 

@@ -6,13 +6,14 @@
 //
 
 import SwiftUI
+import RealmSwift
 
 struct SkillsView: View {
     @ObservedObject var viewModel: SkillsViewModel
     @State private var enteredText: String = ""
     @State private var priority: Priority = .low
-  
 
+    @ObservedResults(Skill.self) var skills: Results<Skill>
     
     
     var body: some View {
@@ -29,10 +30,12 @@ struct SkillsView: View {
             .pickerStyle(.segmented)
             
             Button {
-                let newSkill = Skill(id: UUID(), name: enteredText, isCompleted: false, priority: priority)
-                viewModel.mySkills.append(newSkill)
+                let newSkill = Skill()
+                newSkill.name = enteredText
+                newSkill.priority = priority
+                $skills.append(newSkill)
                 enteredText = ""
-                print(viewModel.mySkills)
+              
             } label: {
                 Text("Speichern")
                     .frame(maxWidth: .infinity)
@@ -43,7 +46,7 @@ struct SkillsView: View {
             
             List {
                 Section {
-                    ForEach(viewModel.pendingSkills, id: \.id) { skill in
+                    ForEach(pendingSkills, id: \._id) { skill in
                         SkillCell(skill: skill, viewModel: SkillsViewModel())
                     }
                 }
@@ -51,7 +54,7 @@ struct SkillsView: View {
                 Text("New Skills")
             }
                 Section {
-                    ForEach(viewModel.completedSkills, id: \.id) { skill in
+                    ForEach(completedSkills, id: \.id) { skill in
                         SkillCell(skill: skill, viewModel: SkillsViewModel())
                     }
                 }
@@ -68,13 +71,12 @@ struct SkillsView: View {
         }
         .padding()
     }
-}
-
-
-
-
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        SkillsView(viewModel: SkillsViewModel())
+    
+    var pendingSkills: [Skill] {
+skills.filter { $0.isCompleted == false }
+               }
+    
+   var completedSkills: [Skill] {
+       skills.filter { $0.isCompleted == true }
     }
 }

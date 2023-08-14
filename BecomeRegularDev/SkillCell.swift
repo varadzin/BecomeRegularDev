@@ -6,19 +6,21 @@
 //
 
 import SwiftUI
+import RealmSwift
 
 struct SkillCell: View {
     
+    @Environment(\.realm) var realm
     let skill: Skill
     
-    
-    @State private var isCompleted: Bool = false
+  
+
     @ObservedObject var viewModel: SkillsViewModel
     var body: some View {
         HStack {
             
-            Image(systemName: isCompleted ? "checkmark.circle.fill" : "circle")
-                .foregroundColor(isCompleted ? .green : .gray)
+            Image(systemName: skill.isCompleted ? "checkmark.circle.fill" : "circle")
+                .foregroundColor(skill.isCompleted ? .green : .gray)
             Text(skill.name)
             Spacer()
                 .frame(maxWidth: .infinity)
@@ -33,7 +35,10 @@ struct SkillCell: View {
          }
         
         .onTapGesture {
-            isCompleted.toggle()
+            let skillToUpdate = realm.object(ofType: Skill.self, forPrimaryKey: skill._id)
+            try? realm.write {
+                skillToUpdate?.isCompleted.toggle()
+            }
         }
     }
 }

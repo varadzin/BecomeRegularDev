@@ -6,11 +6,12 @@
 //
 
 import SwiftUI
+import RealmSwift
 
 class SkillsViewModel: ObservableObject {
     
-    @Published var mySkills: [Skill] = []
-    
+
+
     
      func priorityBackground(_ priority: Priority) -> Color {
         switch priority {
@@ -24,13 +25,7 @@ class SkillsViewModel: ObservableObject {
     }
     
     
-    var pendingSkills: [Skill] {
-mySkills.filter { $0.isCompleted == false }
-               }
-    
-   var completedSkills: [Skill] {
-       mySkills.filter { $0.isCompleted == true }
-    }
+
     
     
     
