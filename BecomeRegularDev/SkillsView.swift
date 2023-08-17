@@ -12,7 +12,7 @@ struct SkillsView: View {
     @ObservedObject var viewModel: SkillsViewModel
     @State private var enteredText: String = ""
     @State private var priority: Priority = .low
-
+    
     @ObservedResults(Skill.self) var skills: Results<Skill>
     
     
@@ -35,7 +35,7 @@ struct SkillsView: View {
                 newSkill.priority = priority
                 $skills.append(newSkill)
                 enteredText = ""
-              
+                
             } label: {
                 Text("Speichern")
                     .frame(maxWidth: .infinity)
@@ -73,10 +73,10 @@ struct SkillsView: View {
     }
     
     var pendingSkills: [Skill] {
-skills.filter { $0.isCompleted == false }
-               }
+        skills.filter { $0.isCompleted == false }
+    }
     
-   var completedSkills: [Skill] {
-       skills.filter { $0.isCompleted == true }
+    var completedSkills: [Skill] {
+        skills.filter { $0.isCompleted == true }
     }
 }

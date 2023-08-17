@@ -9,13 +9,11 @@ import SwiftUI
 import RealmSwift
 
 struct SkillCell: View {
-    
     @Environment(\.realm) var realm
     let skill: Skill
-    
-  
 
     @ObservedObject var viewModel: SkillsViewModel
+    
     var body: some View {
         HStack {
             

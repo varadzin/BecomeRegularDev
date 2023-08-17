@@ -55,7 +55,6 @@ class RealmManager: ObservableObject {
         
         // here I init realm object
         realm = try! await Realm(configuration: configuration!, downloadBeforeOpen: .always)
-    }
-}
+    }}
 
 // so here is the setup for flexible sync, for which we need subscription 
